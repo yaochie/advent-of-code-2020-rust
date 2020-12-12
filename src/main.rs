@@ -4,6 +4,7 @@ mod day1;
 mod day2;
 mod day3;
 mod day4;
+mod day5;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -17,6 +18,8 @@ fn main() {
         "day3b" => day3::day3(false),
         "day4a" => day4::day4(true),
         "day4b" => day4::day4(false),
+        "day5a" => day5::day5(true),
+        "day5b" => day5::day5(false),
         _ => {
             panic!("invalid day {}", args[1]);
         }
