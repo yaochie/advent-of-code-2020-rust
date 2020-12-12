@@ -3,6 +3,7 @@ use std::env;
 mod day1;
 mod day2;
 mod day3;
+mod day4;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -14,6 +15,8 @@ fn main() {
         "day2b" => day2::day2(false),
         "day3a" => day3::day3(true),
         "day3b" => day3::day3(false),
+        "day4a" => day4::day4(true),
+        "day4b" => day4::day4(false),
         _ => {
             panic!("invalid day {}", args[1]);
         }

@@ -16,7 +16,6 @@ fn read_map() -> Vec<Vec<bool>> {
                 panic!("error: {}", error);
             }
         }
-
     }
 
     map
@@ -53,13 +52,7 @@ pub fn day3(part_a: bool) {
     if part_a {
         count_trees(&map, &1, &3);
     } else {
-        let offsets = [
-            (1, 1),
-            (3, 1),
-            (5, 1),
-            (7, 1),
-            (1, 2)
-        ];
+        let offsets = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)];
 
         let mut prod: u128 = 1;
         for (col_offset, row_offset) in offsets.iter() {

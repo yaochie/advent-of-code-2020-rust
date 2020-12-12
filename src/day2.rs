@@ -19,13 +19,17 @@ fn valid_day2a_password(password: &str, param: char, min_count: usize, max_count
 
 fn valid_day2b_password(password: &str, param: char, pos_a: usize, pos_b: usize) -> bool {
     (password.chars().nth(pos_a - 1).unwrap() == param)
-    ^ (password.chars().nth(pos_b - 1).unwrap() == param)
+        ^ (password.chars().nth(pos_b - 1).unwrap() == param)
 }
 
 pub fn day2(part_a: bool) {
     // read values from stdin
 
-    let val_fn = if part_a { valid_day2a_password } else { valid_day2b_password };
+    let val_fn = if part_a {
+        valid_day2a_password
+    } else {
+        valid_day2b_password
+    };
 
     let mut num_valid = 0;
     loop {
