@@ -35,7 +35,7 @@ fn read_day1() -> HashSet<i32> {
     values
 }
 
-pub fn day1a() {
+fn day1a(total: i32, values: &HashSet<i32>) {
     let total = 2020;
     let values = read_day1();
 
@@ -50,7 +50,7 @@ pub fn day1a() {
     }
 }
 
-pub fn day1b() {
+fn day1b(total: i32, values: &HashSet<i32>) {
     let total = 2020;
     let values = read_day1();
 
@@ -66,5 +66,16 @@ pub fn day1b() {
                 }
             }
         }
+    }
+}
+
+pub fn day1(part_a: bool) {
+    let total = 2020;
+    let values = read_day1();
+
+    if part_a {
+        day1a(total, &values)
+    } else {
+        day1b(total, &values)
     }
 }
