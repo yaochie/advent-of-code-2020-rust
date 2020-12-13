@@ -36,10 +36,7 @@ fn read_day1() -> HashSet<i32> {
 }
 
 fn day1a(total: i32, values: &HashSet<i32>) {
-    let total = 2020;
-    let values = read_day1();
-
-    for value in &values {
+    for value in values {
         let other_value = total - value;
 
         if values.contains(&other_value) {
@@ -51,19 +48,18 @@ fn day1a(total: i32, values: &HashSet<i32>) {
 }
 
 fn day1b(total: i32, values: &HashSet<i32>) {
-    let total = 2020;
-    let values = read_day1();
+    for a in values {
+        for b in values {
+            if a == b {
+                continue;
+            }
 
-    for a in &values {
-        for b in &values {
-            if a != b {
-                let remainder = total - a - b;
+            let remainder = total - a - b;
 
-                if values.contains(&remainder) {
-                    println!("found triplet {} and {} and {}", a, b, remainder);
-                    println!("product: {}", a * b * remainder);
-                    return;
-                }
+            if values.contains(&remainder) {
+                println!("found triplet {} and {} and {}", a, b, remainder);
+                println!("product: {}", a * b * remainder);
+                return;
             }
         }
     }
