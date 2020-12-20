@@ -1,5 +1,5 @@
-use std::io;
 use std::collections::HashMap;
+use std::io;
 
 fn read_day10() -> Vec<i32> {
     // read joltages and sort them
@@ -14,7 +14,7 @@ fn read_day10() -> Vec<i32> {
             Ok(_) => {
                 let joltage = match line.trim().parse::<i32>() {
                     Ok(n) => n,
-                    Err(_) => panic!("couldn't parse {}", line)
+                    Err(_) => panic!("couldn't parse {}", line),
                 };
 
                 joltages.push(joltage);
@@ -46,8 +46,12 @@ pub fn day10(part_a: bool) {
         // for the device
         three_diffs += 1;
 
-        println!("1s: {}, 3s: {}, ans: {}", one_diffs, three_diffs, one_diffs * three_diffs);
-
+        println!(
+            "1s: {}, 3s: {}, ans: {}",
+            one_diffs,
+            three_diffs,
+            one_diffs * three_diffs
+        );
     } else {
         // dynamic programming
         // let V[i] be the number of paths that include (i.e. end with) joltage i.
@@ -62,7 +66,7 @@ pub fn day10(part_a: bool) {
             for diff in 1..4 {
                 sum += match num_paths.get(&(joltage - diff)) {
                     None => 0,
-                    Some(n) => *n
+                    Some(n) => *n,
                 };
             }
 

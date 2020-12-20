@@ -1,5 +1,5 @@
-use std::io;
 use std::collections::HashSet;
+use std::io;
 
 #[derive(Clone)]
 enum Instruction {
@@ -10,7 +10,7 @@ enum Instruction {
 
 struct ProgramState {
     idx: i32,
-    acc_value: i32
+    acc_value: i32,
 }
 
 fn parse_instruction(line: &str) -> Instruction {
@@ -23,15 +23,24 @@ fn parse_instruction(line: &str) -> Instruction {
         "acc" => Instruction::Acc(value),
         "jmp" => Instruction::Jmp(value),
         "nop" => Instruction::Nop(value),
-        _ => panic!("Got invalid instruction {}", instr)
+        _ => panic!("Got invalid instruction {}", instr),
     }
 }
 
 fn make_step(instrs: &Vec<Instruction>, state: &ProgramState) -> ProgramState {
     match instrs[state.idx as usize] {
-        Instruction::Acc(v) => ProgramState { idx: state.idx + 1, acc_value: state.acc_value + v },
-        Instruction::Jmp(v) => ProgramState { idx: state.idx + v, acc_value: state.acc_value },
-        Instruction::Nop(_) => ProgramState { idx: state.idx + 1, acc_value: state.acc_value },
+        Instruction::Acc(v) => ProgramState {
+            idx: state.idx + 1,
+            acc_value: state.acc_value + v,
+        },
+        Instruction::Jmp(v) => ProgramState {
+            idx: state.idx + v,
+            acc_value: state.acc_value,
+        },
+        Instruction::Nop(_) => ProgramState {
+            idx: state.idx + 1,
+            acc_value: state.acc_value,
+        },
     }
 }
 
@@ -40,7 +49,10 @@ fn step_through_program(program: &Vec<Instruction>) -> bool {
 
     let mut visited: HashSet<i32> = HashSet::new();
 
-    let mut state = ProgramState { idx: 0, acc_value: 0 };
+    let mut state = ProgramState {
+        idx: 0,
+        acc_value: 0,
+    };
     while !visited.contains(&state.idx) && state.idx < (program.len() as i32) {
         visited.insert(state.idx);
 
@@ -48,7 +60,10 @@ fn step_through_program(program: &Vec<Instruction>) -> bool {
     }
 
     if visited.contains(&state.idx) {
-        println!("executing repeated instruction! accumulator: {}", state.acc_value);
+        println!(
+            "executing repeated instruction! accumulator: {}",
+            state.acc_value
+        );
         false
     } else {
         println!("final accumulator state: {}", state.acc_value);
@@ -58,7 +73,7 @@ fn step_through_program(program: &Vec<Instruction>) -> bool {
 
 fn day8b(program: &Vec<Instruction>) {
     // brute force: replace jmp/nop instructions one by one
-    
+
     for (idx, instr) in program.iter().enumerate() {
         match instr {
             Instruction::Acc(_) => continue,

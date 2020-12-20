@@ -36,7 +36,7 @@ pub fn day9() {
             Ok(_) => {
                 let next_num = match line.trim().parse::<i64>() {
                     Ok(n) => n,
-                    Err(_) => panic!("couldn't parse {}", line)
+                    Err(_) => panic!("couldn't parse {}", line),
                 };
 
                 numbers.push(next_num);
