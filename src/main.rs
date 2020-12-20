@@ -4,6 +4,7 @@ mod day1;
 mod day10;
 mod day11;
 mod day12;
+mod day13;
 mod day2;
 mod day3;
 mod day4;
@@ -40,6 +41,8 @@ fn main() {
         "day11b" => day11::day11(false),
         "day12a" => day12::day12(true),
         "day12b" => day12::day12(false),
+        "day13a" => day13::day13(true),
+        "day13b" => day13::day13(false),
         _ => {
             panic!("invalid day {}", args[1]);
         }
