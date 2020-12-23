@@ -53,7 +53,7 @@ fn main() {
         "day15b" => day15::day15(false),
         "day16a" => day16::day16(true),
         "day16b" => day16::day16(false),
-        "day17a" => day17::day17(true),
+        "day17" => day17::day17(),
         _ => {
             panic!("invalid day {}", args[1]);
         }
