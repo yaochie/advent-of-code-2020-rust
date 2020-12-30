@@ -8,13 +8,13 @@ fn print_config(cups: &VecDeque<u64>) {
     println!("configuration: {}", s.join(","));
 }
 
-// fn print_map_config(map: &HashMap<u64, Node>, start: u64) {
+// fn print_map_config(map: &HashMap<u64, u64>, start: &u64) {
 //     print!("configuration: ");
 
 //     let mut curr = start;
 //     for _ in 0..map.len() {
 //         print!("{},", curr);
-//         curr = map.get(&curr).unwrap().next.unwrap();
+//         curr = map.get(curr).unwrap();
 //     }
 //     println!();
 // }
@@ -47,15 +47,15 @@ fn make_move(cups: &mut VecDeque<u64>, max_val: u64) {
     cups.insert(insert_idx, c1);
 }
 
-fn make_move_map(map: &mut HashMap<u64, Node>, curr: u64, max_val: u64) -> u64 {
-    let c1 = map.get(&curr).unwrap().next.unwrap();
-    let c2 = map.get(&c1).unwrap().next.unwrap();
-    let c3 = map.get(&c2).unwrap().next.unwrap();
+fn make_move_map(map: &mut HashMap<u64, u64>, curr: u64, max_val: u64) -> u64 {
+    let c1 = map.get(&curr).unwrap().clone();
+    let c2 = map.get(&c1).unwrap().clone();
+    let c3 = map.get(&c2).unwrap().clone();
 
-    let c4 = map.get(&c3).unwrap().next.unwrap();
+    let c4 = map.get(&c3).unwrap().clone();
 
     // remove
-    map.get_mut(&curr).unwrap().next = Some(c4);
+    map.insert(curr, c4);
 
     // find next
     let mut next = if curr == 1 { max_val } else { curr - 1 };
@@ -64,10 +64,10 @@ fn make_move_map(map: &mut HashMap<u64, Node>, curr: u64, max_val: u64) -> u64 {
     }
 
     // insert
-    let other = map.get(&next).unwrap().next.unwrap();
+    let other = map.get(&next).unwrap().clone();
 
-    map.get_mut(&next).unwrap().next = Some(c1);
-    map.get_mut(&c3).unwrap().next = Some(other);
+    map.insert(next, c1);
+    map.insert(c3, other);
 
     c4
 }
@@ -85,10 +85,6 @@ fn simple_game(start: String) {
     }
     print!("Final ");
     print_config(&cups);
-}
-
-struct Node {
-    next: Option<u64>,
 }
 
 /// store the cups in a singly-linked circular-list hash map.
@@ -112,12 +108,7 @@ fn complex_game(start: String) {
 
     let mut map = HashMap::new();
     for (i, c) in cups.iter().enumerate() {
-        map.insert(
-            c.clone(),
-            Node {
-                next: Some(cups[(i + 1) % max_val]),
-            },
-        );
+        map.insert(c.clone(), cups[(i + 1) % max_val]);
     }
 
     assert_eq!(map.len(), max_val);
@@ -125,12 +116,12 @@ fn complex_game(start: String) {
     let mut curr = cups[0];
     for _ in 0..n_moves {
         curr = make_move_map(&mut map, curr, max_val as u64);
-        // print_map_config(&map, curr);
+        // print_map_config(&map, &curr);
     }
 
     // find cups after 1.
-    let first = map.get(&1).unwrap().next.unwrap();
-    let second = map.get(&first).unwrap().next.unwrap();
+    let first = map.get(&1).unwrap();
+    let second = map.get(&first).unwrap();
 
     println!("cups after 1: {} {}", first, second);
     println!("answer: {}", first * second);
