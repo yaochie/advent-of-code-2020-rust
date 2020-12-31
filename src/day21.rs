@@ -78,7 +78,7 @@ pub fn day21() {
     println!();
     println!("Part B:");
     println!("Possible ingredients:");
-    // let mut allergen_ingredients = HashMap::new();
+    
     // do manually??
     for (allergen, ingredients) in non_allergen.iter() {
         println!("{}, {}", allergen, ingredients.len());

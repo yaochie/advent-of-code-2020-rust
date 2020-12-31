@@ -161,6 +161,7 @@ fn rec_dec_parser(tokens: &Vec<Token>) -> i64 {
     result
 }
 
+/// evaluate expression using recursive descent (grammar in comment at top)
 fn eval_expression2(string: String) -> i64 {
     let tokens = lex(&string);
     rec_dec_parser(&tokens)

@@ -147,7 +147,6 @@ fn find_corners(tiles: &TileMap) {
 
     let mut prod: u64 = 1;
     for (tile_id, tile) in tiles {
-        // let to_check = [&tile.top, &tile.right, &tile.bottom, &tile.left];
         let n_matches = count_matches(tile_id, tile, tiles);
 
         if n_matches == 2 {

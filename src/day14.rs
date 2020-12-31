@@ -48,6 +48,12 @@ fn day14a() {
     println!("sum: {}", sum);
 }
 
+/// given an integer and a list of positions,
+/// fill in a bitmask at those positions with the binary
+/// representation of the integer, and return the final integer
+/// 
+/// E.g. make_mask(7, [0, 5, 6]) gives 0b1100001.
+/// E.g. make_mask(7, [0, 1, 3]) gives 0b0001011.
 fn make_mask(x: u64, positions: &Vec<usize>) -> u64 {
     let mut mask = ['0'; 36];
 
@@ -105,6 +111,8 @@ fn day14b() {
                     let value = caps.get(2).unwrap().as_str().parse::<u64>().unwrap();
 
                     let float_max = 2u64.pow(float_positions.len() as u32);
+
+                    // brute force: go through all possibilities
                     for i in 0..float_max {
                         let mask = make_mask(i, &float_positions);
 
